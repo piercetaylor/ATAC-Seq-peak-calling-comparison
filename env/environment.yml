@@ -1,0 +1,17 @@
+name: atac-methods
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+dependencies:
+  - python=3.11
+  - bowtie2=2.5.4
+  - samtools=1.21
+  - fastp=0.24.0
+  - bedtools=2.31.1
+  - macs3=3.0.3
+  - genrich=0.6.1
+  - time=1.9
+  - curl
+# A version-constrained specification, not a solved platform lock.
+# bootstrap.sh writes the actual resolved explicit lock and versions on Linux.

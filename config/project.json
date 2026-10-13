@@ -1,0 +1,9 @@
+{
+  "dataset": "GM12878 Omni-ATAC: SRR5427887 and SRR5427886 (PRJNA380283 / GSE95654)",
+  "assembly": "GRCh38 / hg38 UCSC no-alt analysis set",
+  "species": "Homo sapiens",
+  "cell_line": "GM12878",
+  "run_type": "full",
+  "comparison": ["MACS3", "Genrich", "HMMRATAC"],
+  "notes": "Two public Omni-ATAC libraries labeled RepA and RepB; both share a BioSample. They are not asserted to be independent donors. HMMRATAC is the maintained MACS3 implementation. Full-depth within-library caller comparison; no read subsampling."
+}
