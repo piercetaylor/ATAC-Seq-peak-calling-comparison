@@ -14,17 +14,21 @@ die() { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
 need() { command -v "$1" >/dev/null 2>&1 || die "Missing program: $1"; }
 require_file() { [[ -f "$1" ]] || die "Missing file: $1"; }
 
-activate_env() {
+load_conda() {
   if [[ -n "${CONDA_SH:-}" ]]; then
     source "$CONDA_SH"
-  elif command -v conda >/dev/null 2>&1; then
-    source "$(conda info --base)/etc/profile.d/conda.sh"
-  elif type module >/dev/null 2>&1; then
-    module load miniconda3
-    source "$(conda info --base)/etc/profile.d/conda.sh"
-  else
-    die "Load miniconda, or set CONDA_SH in config/local.sh; then run env/bootstrap.sh first."
+    return
   fi
+  if ! type module >/dev/null 2>&1 && [[ -f /etc/profile.d/modules.sh ]]; then
+    source /etc/profile.d/modules.sh
+  fi
+  type module >/dev/null 2>&1 || die "Environment modules unavailable; set CONDA_SH in config/local.sh."
+  module load "$CONDA_MODULE" || die "Could not load module $CONDA_MODULE; set CONDA_MODULE in config/local.sh."
+  source "$(conda info --base)/etc/profile.d/conda.sh"
+}
+
+activate_env() {
+  load_conda
   [[ -d "$ENV_PREFIX/conda-meta" ]] || die "Environment is not installed: $ENV_PREFIX"
   conda activate "$ENV_PREFIX"
   # Avoid nested numerical libraries using unallocated cores in caller comparisons.

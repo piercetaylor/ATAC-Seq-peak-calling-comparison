@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Run on the designated Hellbender DTN, not the login or compute nodes.
+# Run through sbatch slurm/fetch_inputs.sbatch (compute nodes have internet access),
+# or directly on the Hellbender DTN. Never on the login node.
 set -Eeuo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)/scripts/common.sh"
-[[ -z "${SLURM_JOB_ID:-}" ]] || die "Transfer inputs on the DTN before submitting jobs."
-[[ "$(hostname -s)" != *login* ]] || die "Transfer inputs on hellbender-dtn-p1, not the login node."
+[[ "$(hostname -s)" != *login* ]] || die "Do not transfer data on the login node; use sbatch slurm/fetch_inputs.sbatch."
 need curl; need md5sum; need sha256sum; need gzip
 mkdir -p "$DATA_DIR/fastq" "$REF_DIR" "$DATA_DIR/provenance"
 

@@ -7,6 +7,8 @@ ACCOUNT="${ACCOUNT:-general}"
 PARTITION="${PARTITION:-general}"
 QOS="${QOS:-normal}"
 ARRAY_CONCURRENCY="${ARRAY_CONCURRENCY:-2}"
+# Hellbender default miniconda3 (4.10.3) predates libmamba; pin the current module.
+CONDA_MODULE="${CONDA_MODULE:-miniconda3/v26.7.1-1_py314}"
 MAPQ="${MAPQ:-30}"
 MAX_INSERT="${MAX_INSERT:-2000}"
 QVALUE="${QVALUE:-0.01}"

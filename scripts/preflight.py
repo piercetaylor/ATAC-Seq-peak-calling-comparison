@@ -28,7 +28,7 @@ def validate(root, data_dir=None, reference_dir=None, reference_only=False):
         if data_dir:
             receipt = data_dir / "provenance/samples.tsv"
             if not receipt.is_file() or receipt.read_bytes() != (root / "config/samples.tsv").read_bytes():
-                raise ValueError("Input receipt differs from current sample manifest; rerun fetch_inputs.sh on DTN")
+                raise ValueError("Input receipt differs from current sample manifest; rerun slurm/fetch_inputs.sbatch")
             if not (data_dir / "provenance/input_sha256.txt").is_file():
                 raise ValueError("Input checksum receipt is missing")
     if reference_dir:

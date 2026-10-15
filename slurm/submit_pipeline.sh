@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Run this lightweight submission wrapper on the login node after DTN transfer
-# and successful setup_env.sbatch completion. It is the only analysis submitter.
+# Run this lightweight submission wrapper on the login node after successful
+# fetch_inputs.sbatch and setup_env.sbatch completion. It is the only analysis submitter.
 set -Eeuo pipefail
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)/scripts/common.sh"
 need sbatch
