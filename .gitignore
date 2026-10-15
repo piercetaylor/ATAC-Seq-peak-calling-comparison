@@ -16,3 +16,6 @@ config/local.sh
 env/runtime/
 env/package-cache/
 dist/
+/*.log
+*.code-workspace
+diag/**/*.narrowPeak
