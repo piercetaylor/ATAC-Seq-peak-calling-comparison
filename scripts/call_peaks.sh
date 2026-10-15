@@ -17,7 +17,7 @@ case "$caller" in
     native="$STAGE_DIR/native/${SAMPLE}_peaks.narrowPeak" ;;
   genrich)
     label=Genrich
-    command=(Genrich -t "$pre/filtered.namesort.bam" -o "$STAGE_DIR/native/${SAMPLE}.narrowPeak" -j -q "$QVALUE" -e "$(cat "$ref/excluded_contigs.txt")" -v)
+    command=(Genrich -t "$pre/filtered.namesort.bam" -o "$STAGE_DIR/native/${SAMPLE}.narrowPeak" -j -p "$GENRICH_PVALUE" -e "$(cat "$ref/excluded_contigs.txt")" -v)
     native="$STAGE_DIR/native/${SAMPLE}.narrowPeak" ;;
   hmmratac)
     label=HMMRATAC
@@ -38,4 +38,5 @@ cat "$STAGE_DIR/time.raw.tsv" >> "$STAGE_DIR/runtime.tsv"
 require_file "$native"
 log_command python "$PROJECT_ROOT/scripts/normalize_peaks.py" --input "$native" --output "$STAGE_DIR/peaks.bed" \
   --sizes "$ref/chrom.sizes" --blacklist "$ref/blacklist.bed"
+[[ -s "$STAGE_DIR/peaks.bed" ]] || die "$label produced zero peaks for $SAMPLE; see $STAGE_DIR/caller.log"
 stage_complete

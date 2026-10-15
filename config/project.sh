@@ -12,6 +12,8 @@ CONDA_MODULE="${CONDA_MODULE:-miniconda3/v26.7.1-1_py314}"
 MAPQ="${MAPQ:-30}"
 MAX_INSERT="${MAX_INSERT:-2000}"
 QVALUE="${QVALUE:-0.01}"
+# Genrich q-values are BH-adjusted over every genome base and never pass on hg38; use its documented p default.
+GENRICH_PVALUE="${GENRICH_PVALUE:-0.01}"
 SEED="${SEED:-42}"
 # MACS3 'hs' shortcut is 2,913,022,398 effective bases (documented by MACS3).
 EFFECTIVE_GENOME_SIZE="${EFFECTIVE_GENOME_SIZE:-2913022398}"

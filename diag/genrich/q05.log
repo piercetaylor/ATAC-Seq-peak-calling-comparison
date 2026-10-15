@@ -1,0 +1,16 @@
+Processing experimental file #0: results/preprocessing/gm12878_omni_repA/filtered.namesort.bam
+  BAM records analyzed:    45382616
+    Paired alignments:     45382616
+    Unpaired alignments:          0
+  Fragments analyzed:      22691308
+    Full fragments:        22691308
+    ATAC-seq cut sites:    45382616
+      (expanded to length 100bp)
+- control file #0 not provided -
+  Background pileup value: 1.335366
+Peak-calling parameters:
+  Genome length: 3088269832bp
+  Significance threshold: -log(q) > 1.301
+  Min. AUC: 200.000
+  Max. gap between sites: 100bp
+Peaks identified: 0 (0bp)
