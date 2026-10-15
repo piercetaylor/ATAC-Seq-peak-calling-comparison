@@ -1,27 +1,26 @@
-# Preparation validation
+# Validation
 
-Date: 2026-10-13. This record distinguishes software preparation from a completed biological analysis.
+Last checked 2026-10-15 on Hellbender.
 
-| Check | Observed outcome |
+## Software tests
+
+| Check | Result |
 |---|---|
-| Public metadata and provenance | ENA run/experiment metadata, four FASTQ URLs and MD5 values, reference MD5, and pinned blacklist digest recorded |
-| Configuration preflight | Passed for the selected manifest |
-| Python unit tests | 19 passed: paired-read filtering, long fragments, blacklist/body overlap, coordinate boundaries, peak normalization, union/Jaccard, one-count-per-fragment FRiP, missing/partial outputs, and denominator consistency |
-| Shell syntax | All project Bash and SLURM files passed `bash -n` |
-| Offline scheduler test | Passed using a fake local scheduler: six stages, correct dependency links and two-library arrays, refusal to overwrite an existing run; no cluster jobs submitted |
-| Linux text format | Shell/Python/sample-manifest files have LF line endings and no UTF-8 BOM |
-| Caller option review | Pinned MACS3 3.0.3 CLI/source inspected; HMMRATAC uses `--randomSeed`, preserves duplicates by default, and emits accessible-region narrowPeak output |
-| Dashboard assertions | 23 parser/reactive/plot assertions passed, including explicit fixture labeling, missing data, empty selections, and partial-bundle handling |
-| Browser check | Final Shiny app opened successfully at 127.0.0.1:3838 outside the Windows sandbox; overview/awaiting-results state and Methods & evidence navigation verified |
-| Full biological workflow | **Not executed.** The user will submit the Hellbender jobs |
-| Linux environment resolution | **Not executed.** The version-constrained specification is not yet a solved Linux lock |
+| Python unit tests | 19/19 pass (pair filtering, blacklist overlap, interval boundaries, Jaccard, FRiP, missing outputs) |
+| SLURM submission test | Passes with a mock scheduler (six dependent stages; refuses to overwrite an existing run) |
+| Dashboard tests (R 4.4.0) | 15/15 pass. The Shiny reactive tests are skipped until `scripts/install_dashboard.R` creates `.R-library/` |
+| Dashboard on real results | The server loads all six caller/sample rows and the overview renders. Plots could not be rendered on the login node, which lacks `libtiff.so.6` |
 
-## Local R limitation
+## Full run
 
-The installed Windows R 4.4.3 process exits abnormally after the dashboard tests print all passing assertions. A minimal process loading the existing rlang package also reproduces a shutdown failure. Pinning the project's dependencies to a 2025-06-01 CRAN snapshot and testing with a clean R session did not remove it. The interactive dashboard runs and was verified in the browser, but the R test command does not return a clean exit code on this host. No global R installation or global package library was changed.
+| Step | Result |
+|---|---|
+| Input download | All FASTQs, the reference, and the blacklist matched their checksums |
+| Environment | Solved and installed. MACS3 3.0.3, Genrich 0.6.1, samtools 1.21, fastp 0.24.0, bedtools 2.31.1 |
+| Pipeline | All stages exited 0 (jobs 18935775–18935780). `status.json` reports `complete` in `full` mode |
+| Genrich | The first run returned zero peaks at q < 0.01. The cause was diagnosed, and Genrich was re-run at p < 0.01 (jobs 18953716–18953717). See `results/provenance/PATCH_NOTES.txt` |
 
-The dependency set is project-local and listed in [dashboard-package-versions.tsv](dashboard-package-versions.tsv). Investigate the host R shutdown separately if it affects ordinary R sessions; do not suppress failing process exit codes in automated testing.
+## Not yet checked
 
-## What remains for scientific completion
-
-Transfer and checksum-verify the complete inputs, successfully resolve the Linux environment on a compute node, execute all selected libraries/callers, inspect read QC and HMM training diagnostics, export validated real metrics, and review those outputs in Shiny. Recorded runtime/memory and peak counts remain unavailable until that run finishes. No synthetic test fixture is included as project analysis results.
+- HMMRATAC training and cutoff diagnostics have not been reviewed.
+- No external reference set, such as DNase, has been compared.

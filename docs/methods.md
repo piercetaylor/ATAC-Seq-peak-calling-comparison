@@ -1,21 +1,45 @@
-# Planned analysis methods
+# Methods
 
-These methods describe the implemented workflow. Replace planned language with past tense only after successful full-data execution and report the recorded software lock and measured QC.
+## Data
 
-Two public human GM12878 Omni-ATAC libraries, SRR5427887 and SRR5427886, were selected from PRJNA380283. They are paired-end replicate libraries of one cell line, not independent human donors. The analysis is designed as a caller comparison within one dataset. See [research.md](research.md) for archive mappings and primary literature.
+We analyzed two paired-end (2 × 76 bp) GM12878 Omni-ATAC libraries, SRR5427887 (RepA) and SRR5427886 (RepB), from PRJNA380283 (Corces et al., 2017). They share one BioSample and are treated as technical replicates. Accessions and checksums are listed in [research.md](research.md).
 
-Paired-end adapter detection and trimming use fastp 0.24.0 with a minimum retained read length of 25 bp and otherwise default filtering. Bowtie2 2.5.4 aligns to the complete UCSC hg38 no-alt analysis set with `--very-sensitive --no-mixed --no-discordant -X 2000` and seed 42. The 2,000 bp alignment insert limit is a declared upper bound, while nucleosome-length fragments are retained. No short-fragment-only selection or global Tn5 shifting is applied.
+## Preprocessing
 
-samtools 1.21 name sorting, `fixmate -m`, coordinate sorting, and `markdup` establish paired duplicate flags. The shared filter retains both primary mates only when the pair is properly mapped to the same canonical nuclear chromosome, both mapping qualities are at least 30, neither has QC-fail or duplicate flags, mate coordinates/template span agree, and the complete fragment does not overlap hg38 blacklist v2. Secondary and supplementary records are omitted. Filtering counts, raw-pair totals, mitochondrial fraction, duplicate fraction, and fragment-length distribution are retained.
+- **Trimming.** fastp 0.24.0 trimmed adapters, keeping reads of at least 25 bp.
+- **Alignment.** Bowtie2 2.5.4 aligned reads to the UCSC hg38 no-alt analysis set (`--very-sensitive --no-mixed --no-discordant -X 2000`, seed 42).
+- **Duplicates.** samtools 1.21 marked duplicates (`fixmate -m`, then `markdup`).
+- **Pair filtering.** A pair was kept only if both primary mates:
+  - mapped as a proper pair to the same chromosome among chr1–22, X, and Y;
+  - each had MAPQ of at least 30;
+  - were not flagged as duplicate or QC-fail.
 
-MACS3 3.0.3 `callpeak` receives the coordinate-sorted eligible BAM in BAMPE mode with q=0.01, effective genome size 2,913,022,398, and `--keep-dup all` after upstream duplicate removal. Genrich 0.6.1 receives the queryname-sorted version of those same records, uses ATAC mode (`-j`) and q=0.01, and excludes every non-canonical reference name still in the BAM header. Its additional duplicate-removal option is omitted. Genrich applies its own ATAC cut-site interpretation. These numerical q cutoffs do not establish equal statistical operating points across methods.
+  The fragment also had to lie outside the ENCODE hg38 blacklist v2.
+- **What was kept.** Nucleosome-length fragments were retained. No Tn5 shift was applied to the shared BAM.
 
-HMMRATAC uses the implementation in MACS3 3.0.3 with BAMPE input, seed 42, and default model/training thresholds. Version 3.0.3 preserves input duplicates unless `--remove-dup` is requested; that option is omitted after shared deduplication. This is the maintained Python/Cython implementation, not an exact reproduction of the original Java HMMRATAC benchmark. Inspect its training/cutoff diagnostics and model output before interpreting its calls. Exact help/version output and executed commands are preserved.
+## Peak calling
 
-All native caller outputs are preserved. Final intervals are validated against the exact reference sizes and filtered to canonical nuclear chromosomes without blacklist overlap. Peaks remain separate for counts and width summaries; merged interval unions are used for covered bases and base-pair Jaccard. Directional peak agreement requires at least 1 bp overlap. The fragment-based FRiP denominator comprises all eligible pairs; each pair contributes once if its full span overlaps any final peak. Inter-library agreement is assessed within each caller. Ratios with zero denominators are undefined, not set to one.
+All three callers received the same filtered pairs.
 
-Caller wall time and maximum resident memory are measured with GNU time for separate single-CPU SLURM jobs; numerical-library thread counts are restricted to one. Hardware information and scheduler accounting are retained. Resource requests are configuration choices rather than observed performance. Preprocessing and environment setup are excluded from the caller timing comparison.
+- **MACS3 3.0.3** `callpeak`: BAMPE mode, q < 0.01, genome size 2,913,022,398, `--keep-dup all`.
+- **Genrich 0.6.1**: queryname-sorted BAM, ATAC mode (`-j`), p < 0.01, with non-canonical contigs excluded. Genrich's q-values are adjusted across every base in the genome, and no position reached q < 0.05, so q cutoffs produced zero peaks. We used Genrich's default p-value cutoff instead.
+- **HMMRATAC** (`macs3 hmmratac`, 3.0.3): BAMPE mode, seed 42, default model settings. This is the maintained Python port, not the original Java tool.
 
-No independently accessioned truth set, motif enrichment, TSS-enrichment analysis, differential accessibility, or IDR calculation is implemented in this initial study. The output supports a descriptive comparison of calls and reproducibility. It does not estimate accuracy or identify a universally superior method.
+These cutoffs are not equivalent statistical operating points.
 
-Implementation references: [MACS3 callpeak documentation](https://macs3-project.github.io/MACS/docs/callpeak.html), [MACS3 HMMRATAC documentation](https://macs3-project.github.io/MACS/docs/hmmratac.html), [v3.0.3 HMMRATAC source](https://github.com/macs3-project/MACS/blob/v3.0.3/MACS3/Commands/hmmratac_cmd.py), and [Genrich manual](https://github.com/jsh58/Genrich).
+## Metrics
+
+Final peaks were restricted to canonical nuclear chromosomes outside the blacklist.
+
+- **Counts and widths** use individual peaks.
+- **Covered bases and Jaccard** use the merged union of each peak set.
+- **Peak overlap** requires at least 1 bp in common.
+- **FRiP** is the fraction of retained fragments whose span overlaps any peak. Each fragment is counted once.
+- **Replicate agreement** compares RepA and RepB within each caller.
+- **Runtime and memory** were measured with GNU time, one SLURM job per caller and library, single-threaded.
+
+We did not run IDR, TSS enrichment, motif analysis, or comparisons to an external reference. The results describe how the callers behave; they do not measure accuracy.
+
+## References
+
+[MACS3 callpeak](https://macs3-project.github.io/MACS/docs/callpeak.html) · [MACS3 HMMRATAC](https://macs3-project.github.io/MACS/docs/hmmratac.html) · [Genrich](https://github.com/jsh58/Genrich)
