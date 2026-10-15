@@ -43,7 +43,7 @@ Each caller ran on one CPU per library.
 
 ## Caveats
 
-- **The cutoffs differ.** At q < 0.01, Genrich returned no peaks. Genrich corrects for multiple testing across every base of the genome, and even its strongest peaks (p ≈ 1e-10) cannot survive that correction on hg38. We therefore used its default cutoff, p < 0.01. Some of Genrich's lead in peak count, FRiP, and replicate agreement probably comes from this looser cutoff. The diagnostics are in `diag/genrich/`.
+- **The cutoffs differ.** At q < 0.01, Genrich returned no peaks. Genrich corrects for multiple testing across every base of the genome, and even its strongest peaks (p ≈ 1e-10) cannot survive that correction on hg38. We therefore used its default cutoff, p < 0.01. Some of Genrich's lead in peak count, FRiP, and replicate agreement probably comes from this looser cutoff. The cutoff also depends strongly on depth: on a 1M-pair subsample, Genrich at p < 0.01 called about 585,000 peaks, essentially one per cut site. The diagnostics are in `diag/genrich/`.
 - HMMRATAC has no comparable significance cutoff. We ran the MACS3 port, not the original Java release.
 - The two libraries share one BioSample, so their agreement overstates biological reproducibility.
 

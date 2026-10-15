@@ -19,3 +19,9 @@ dist/
 /*.log
 *.code-workspace
 diag/**/*.narrowPeak
+.nextflow/
+.nextflow.log*
+work/
+results-nf/
+diag/nextflow-smoke/*
+!diag/nextflow-smoke/run_smoke.sbatch

@@ -9,6 +9,7 @@ Last checked 2026-10-15 on Hellbender.
 | Python unit tests | 19/19 pass (pair filtering, blacklist overlap, interval boundaries, Jaccard, FRiP, missing outputs) |
 | SLURM submission test | Passes with a mock scheduler (six dependent stages; refuses to overwrite an existing run) |
 | Dashboard tests (R 4.4.0) | 15/15 pass. The Shiny reactive tests are skipped until `scripts/install_dashboard.R` creates `.R-library/` |
+| Nextflow pipeline | A stub run covers all stages. A real run on 1M read pairs per library (conda, job 18966192) completed all 9 tasks, and its output passes dashboard validation. Not yet run on AWS |
 | Dashboard on real results | The server loads all six caller/sample rows and the overview renders. Plots could not be rendered on the login node, which lacks `libtiff.so.6` |
 
 ## Full run

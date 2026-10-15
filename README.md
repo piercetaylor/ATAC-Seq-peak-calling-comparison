@@ -11,7 +11,8 @@ Three peak callers (MACS3, Genrich, and HMMRATAC as implemented in MACS3) were c
 
 Both libraries come from one GM12878 BioSample (PRJNA380283; Corces et al., 2017), so they are technical rather than donor replicates. Reads were aligned to the UCSC hg38 no-alt analysis set, with the ENCODE blacklist v2 excluded.
 
-**Docs:** [methods](docs/methods.md) · [data sources](docs/research.md) · [runbook](docs/runbook.md)
+**Docs:** [methods](docs/methods.md) · [study plan](docs/study_plan.md) · [data sources](docs/research.md) · [runbook](docs/runbook.md) · [output format](docs/data_contract.md) · [validation](docs/validation.md) · [cloud](docs/cloud.md)
+
 ## Run it
 
 On the Hellbender login node, from the project directory:
@@ -24,6 +25,10 @@ bash slurm/status.sh
 ```
 
 Each run writes to a new `RESULTS_DIR`. Paths and SLURM settings can be overridden in `config/local.sh`.
+
+## Cloud
+
+The same analysis is also packaged as a Nextflow pipeline (`nextflow/`). It can run on AWS Batch, other clouds, a laptop, or SLURM, and it writes the same `results/` layout. See [docs/cloud.md](docs/cloud.md) for setup and cost.
 
 ## Dashboard
 
