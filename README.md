@@ -1,6 +1,6 @@
 # ATAC-seq peak caller comparison
 
-We compared three peak callers (MACS3, Genrich, and HMMRATAC as implemented in MACS3) on two full-depth GM12878 Omni-ATAC libraries. The workflow runs on Hellbender under SLURM, and an R Shiny dashboard presents the results.
+Three peak callers (MACS3, Genrich, and HMMRATAC as implemented in MACS3) were compared on two full-depth GM12878 Omni-ATAC libraries. The workflow runs on Hellbender under SLURM, and an R Shiny dashboard presents the results.
 
 **Status:** complete. Findings are in [docs/results.md](docs/results.md).
 
