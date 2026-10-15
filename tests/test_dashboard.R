@@ -29,6 +29,13 @@ check(any(grepl("metadata", loaded$status$status)), "Metrics without metadata do
 subset <- filter_atac_table(loaded$tables$peak_metrics, "RepA", "Genrich")
 check(nrow(subset) == 1 && subset$n_peaks == 12, "Sample and caller selections intersect")
 check(nrow(filter_atac_table(peaks, character(), "MACS3")) == 0, "Empty selection stays empty")
+findings <- atac_findings(list(
+  replicate_overlap = data.frame(caller = c("MACS3", "Genrich"), jaccard = c(.6, .8)),
+  pairwise_overlap = data.frame(sample = "RepA", caller_a = "MACS3", caller_b = "Genrich", jaccard = .5),
+  peak_metrics = peaks, runtime = data.frame(sample = "RepA", caller = c("MACS3", "Genrich"), elapsed_seconds = c(600, 60))))
+check(length(findings) == 4 && grepl("Genrich 0.80, MACS3 0.60", findings[1]) && grepl("fastest is Genrich", findings[4]),
+      "Findings are derived from and ordered by the measured tables")
+check(!length(atac_findings(lapply(atac_schemas, function(x) data.frame()))), "No tables yield no findings")
 
 bad <- peaks
 bad$frip[1] <- 1.2

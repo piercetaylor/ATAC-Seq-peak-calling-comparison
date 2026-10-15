@@ -177,3 +177,42 @@ atac_display_table <- function(data) {
   names(data) <- gsub("_", " ", names(data))
   data
 }
+
+# Plain-language observations derived only from the loaded (selected) tables.
+atac_findings <- function(tables) {
+  findings <- character()
+  group_median <- function(data, value, group) {
+    data <- data[!is.na(data[[value]]), , drop = FALSE]
+    if (!nrow(data)) return(numeric())
+    sort(tapply(data[[value]], data[[group]], median), decreasing = TRUE)
+  }
+  join <- function(values, format) paste(sprintf(format, names(values), values), collapse = ", ")
+  replicate <- group_median(tables$replicate_overlap, "jaccard", "caller")
+  if (length(replicate) > 1) {
+    findings <- c(findings, paste0("Replicate agreement (Jaccard), highest first: ",
+                                   join(round(replicate, 2), "%s %.2f"), "."))
+  }
+  pairs <- tables$pairwise_overlap
+  if (nrow(pairs)) {
+    pairs$pair <- paste(pairs$caller_a, pairs$caller_b, sep = "–")
+    between <- group_median(pairs, "jaccard", "pair")
+    if (length(between)) {
+      findings <- c(findings, sprintf("Most similar callers: %s (median Jaccard %.2f); least similar: %s (%.2f).",
+                                      names(between)[1], between[1], names(between)[length(between)], between[length(between)]))
+    }
+  }
+  peaks <- group_median(tables$peak_metrics, "n_peaks", "caller")
+  widths <- group_median(tables$peak_metrics, "median_peak_width", "caller")
+  if (length(peaks) > 1 && length(widths)) {
+    narrowest <- names(widths)[length(widths)]
+    findings <- c(findings, sprintf("Peak counts (median per sample): %s. Narrowest peaks: %s (median width %s bp).",
+                                    join(round(peaks), "%s %s"), narrowest, round(widths[[narrowest]])))
+    findings[length(findings)] <- gsub("(\\d)(?=(\\d{3})+\\b)", "\\1,", findings[length(findings)], perl = TRUE)
+  }
+  minutes <- group_median(tables$runtime, "elapsed_seconds", "caller") / 60
+  if (length(minutes) > 1) {
+    findings <- c(findings, sprintf("Caller runtime (median per sample): %s; fastest is %s.",
+                                    join(round(rev(minutes), 1), "%s %.1f min"), names(minutes)[length(minutes)]))
+  }
+  findings
+}

@@ -63,6 +63,7 @@ atac_ui <- function() {
               p(class = "caption", "Each line shows the fraction of a caller's peaks in 100 bp bins for the selected sample. Very wide intervals can stretch the horizontal axis; medians above retain the original units."),
               div(class = "interpretation", tags$strong("FRiP depends on the peak set."),
                   " Here it is the fraction of eligible paired-end fragments overlapping at least one peak from that caller. Wider or more numerous peaks can increase FRiP; a higher value is not evidence of greater accuracy."),
+              atac_threshold_note(),
               div(class = "table-wrap", tableOutput("peak_table")))),
           tabPanel("Agreement",
             div(class = "content-panel", h2("Agreement between methods"),
@@ -100,11 +101,16 @@ atac_ui <- function() {
   )
 }
 
+atac_threshold_note <- function() {
+  div(class = "interpretation", tags$strong("Caller thresholds differ."),
+      " MACS3 uses q < 0.01. Genrich uses p < 0.01: its q-values are adjusted across every genome position, and at q < 0.01 (or 0.05) it reported zero peaks on these libraries. HMMRATAC uses its own model with no q cutoff. Genrich's looser cutoff likely contributes to its higher peak count, FRiP, and replicate agreement.")
+}
+
 atac_methods_ui <- function() {
   div(class = "content-panel methods", h2("What the methods measure"),
-      h3("MACS3"), p("Models enrichment over genomic background. This workflow uses paired-end fragment information; exact settings are recorded by the pipeline."),
+      h3("MACS3"), p("Models enrichment over genomic background. This workflow uses paired-end fragment mode (BAMPE) with q < 0.01."),
       tags$a(href = "https://macs3-project.github.io/MACS/docs/callpeak.html", target = "_blank", rel = "noopener", "MACS3 callpeak documentation"),
-      h3("Genrich"), p("Tests genomic enrichment with an ATAC-seq mode that interprets cut sites. Its treatment of the signal differs from fragment-based callers."),
+      h3("Genrich"), p("Tests genomic enrichment with an ATAC-seq mode that interprets cut sites. Its treatment of the signal differs from fragment-based callers. Run in ATAC mode at p < 0.01, its documented default; q cutoffs produced zero peaks here because Genrich adjusts across every genome position."),
       tags$a(href = "https://github.com/jsh58/Genrich", target = "_blank", rel = "noopener", "Genrich methods and options"),
       h3("HMMRATAC"), p("Uses fragment-length information and a hidden Markov model to identify accessible regions and their nucleosomal context. This project uses macs3 hmmratac."),
       tags$a(href = "https://macs3-project.github.io/MACS/docs/hmmratac.html", target = "_blank", rel = "noopener", "HMMRATAC in MACS3"),
@@ -203,10 +209,16 @@ atac_server <- function(results_directory) {
             p(class = "caption", "No example values or simulated findings are shown."))
       } else {
         data <- tables()$peak_metrics
-        div(class = "content-panel", h2("Available evidence"),
+        findings <- atac_findings(tables())
+        tagList(
+          if (length(findings)) div(class = "content-panel", h2("Key findings"),
+            tags$ul(class = "findings", lapply(findings, tags$li)),
+            atac_threshold_note(),
+            p(class = "caption", "Computed from the current selection. Agreement and FRiP describe output behavior, not accuracy.")),
+          div(class = "content-panel", h2("Available evidence"),
             p("Each row is one sample analyzed by one caller. Use the tabs to inspect read quality, peak profiles, agreement, and resource use."),
             if (!nrow(data)) p(class = "inline-empty", "No peak calls match the current selection. Select a sample and a caller, or wait for peak metrics to be exported.") else div(class = "table-wrap", tableOutput("overview_table")),
-            p(class = "caption", "Missing measurements remain unreported. A row in this table confirms that metrics were exported; the run status above reports overall completion."))
+            p(class = "caption", "Missing measurements remain unreported. A row in this table confirms that metrics were exported; the run status above reports overall completion.")))
       }
     })
     output$overview_table <- renderTable(atac_display_table(tables()$peak_metrics[c("sample", "caller", "n_peaks", "median_peak_width", "frip")]), striped = TRUE, bordered = FALSE, spacing = "m", na = "Not reported")
