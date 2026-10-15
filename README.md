@@ -11,8 +11,7 @@ Three peak callers (MACS3, Genrich, and HMMRATAC as implemented in MACS3) were c
 
 Both libraries come from one GM12878 BioSample (PRJNA380283; Corces et al., 2017), so they are technical rather than donor replicates. Reads were aligned to the UCSC hg38 no-alt analysis set, with the ENCODE blacklist v2 excluded.
 
-**Docs:** [methods](docs/methods.md) · [study plan](docs/study_plan.md) · [data sources](docs/research.md) · [runbook](docs/runbook.md) · [output format](docs/data_contract.md) · [validation](docs/validation.md)
-
+**Docs:** [methods](docs/methods.md) · [data sources](docs/research.md) · [runbook](docs/runbook.md)
 ## Run it
 
 On the Hellbender login node, from the project directory:
