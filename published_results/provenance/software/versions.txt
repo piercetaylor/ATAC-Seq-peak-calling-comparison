@@ -1,0 +1,43 @@
+Python 3.11.17
+/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime/bin/bowtie2-align-s version 2.5.4
+64-bit
+Built on runnervmfxdz0
+Thu Nov 20 00:15:15 UTC 2025
+Compiler: gcc version 13.4.0 (conda-forge gcc 13.4.0-7) 
+Options: -O3 -msse2 -funroll-loops -g3 -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime/include -fdebug-prefix-map=/opt/conda/conda-bld/bowtie2_1763597529764/work=/usr/local/src/conda/bowtie2-2.5.4 -fdebug-prefix-map=/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime=/usr/local/src/conda-prefix -O3
+Sizeof {int, long, long long, void*, size_t, off_t}: {4, 8, 8, 8, 8, 8}
+samtools 1.21
+Using htslib 1.24
+Copyright (C) 2024 Genome Research Ltd.
+
+Samtools compilation details:
+    Features:       build=configure curses=yes 
+    CC:             /opt/conda/conda-bld/samtools_1734249775320/_build_env/bin/x86_64-conda-linux-gnu-cc
+    CPPFLAGS:       -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime/include
+    CFLAGS:         -Wall -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime/include -fdebug-prefix-map=/opt/conda/conda-bld/samtools_1734249775320/work=/usr/local/src/conda/samtools-1.21 -fdebug-prefix-map=/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime=/usr/local/src/conda-prefix
+    LDFLAGS:        -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,--allow-shlib-undefined -Wl,-rpath,/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime/lib -Wl,-rpath-link,/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime/lib -L/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime/lib
+    HTSDIR:         
+    LIBS:           
+    CURSES_LIB:     -ltinfow -lncursesw
+
+HTSlib compilation details:
+    Features:       build=configure libcurl=yes S3=yes GCS=yes libdeflate=yes lzma=yes bzip2=yes plugins=yes plugin-path=/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime/libexec/htslib htscodecs=1.6.7
+    CC:             /opt/conda/conda-bld/htslib_1783611562234/_build_env/bin/x86_64-conda-linux-gnu-cc -std=gnu23
+    CPPFLAGS:       -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime/include
+    CFLAGS:         -Wall -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime/include -fdebug-prefix-map=/opt/conda/conda-bld/htslib_1783611562234/work=/usr/local/src/conda/htslib-1.24 -fdebug-prefix-map=/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime=/usr/local/src/conda-prefix -fvisibility=hidden
+    LDFLAGS:        -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,--allow-shlib-undefined -Wl,-rpath,/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime/lib -Wl,-rpath-link,/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime/lib -L/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime/lib -fvisibility=hidden -rdynamic
+
+HTSlib URL scheme handlers present:
+    built-in:	 file, preload, data
+    Amazon S3:	 s3+https, s3, s3+http
+    libcurl:	 gophers, smtp, wss, rtsp, tftp, mqtts, pop3, imaps, pop3s, ws, ftps, https, ftp, gopher, sftp, imap, http, smtps, scp, dict, mqtt, telnet
+    Google Cloud Storage:	 gs+http, gs+https, gs
+    crypt4gh-needed:	 crypt4gh
+    mem:	 mem
+fastp 0.24.0
+bedtools v2.31.1
+macs3 3.0.3
+# packages in environment at /cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/env/runtime:
+#
+# Name                     Version          Build            Channel
+genrich                    0.6.1            h118bc1c_6       bioconda

@@ -9,7 +9,7 @@ Rscript scripts/run_dashboard.R       # http://127.0.0.1:3838
 
 ## Configuration
 
-- **Data.** The app reads `results/dashboard/`. Set `ATAC_RESULTS_DIR` to use another folder.
+- **Data.** The app reads `results/dashboard/`. Set `ATAC_RESULTS_DIR` to use another folder, for example `published_results/dashboard` for the published run.
 - **Port.** Set `ATAC_DASHBOARD_PORT` to change it.
 - **Updates.** The app checks for new results every 30 seconds, or on **Refresh results**.
 

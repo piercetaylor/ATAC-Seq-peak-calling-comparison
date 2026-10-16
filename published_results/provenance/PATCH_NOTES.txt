@@ -1,0 +1,12 @@
+2026-10-15: Genrich stage re-run in place.
+Original run (Genrich -q 0.01) produced 0 peaks for both samples: Genrich BH-adjusts
+q-values over every genome position, and on these libraries max -log10(p) ~10, so no
+position reached q<0.05 (diagnostics: diag/genrich/). Switched Genrich to -p 0.01
+(GENRICH_PVALUE, its documented default) and added a zero-peak stage failure.
+Reference, preprocessing, MACS3 and HMMRATAC outputs are unchanged from the original run.
+Superseded outputs: superseded/2026-10-15_genrich_q0.01/
+
+2026-10-16: Published copy only. The dataset label in dashboard/status.json and
+provenance/config/project.json named GEO series GSE95654, which is an unrelated study;
+it now reads SRP103230. No values changed. config_sha256 in status.json still hashes the
+project.json used for the run.

@@ -2,7 +2,7 @@
 
 Three peak callers (MACS3, Genrich, and HMMRATAC as implemented in MACS3) were compared on two full-depth GM12878 Omni-ATAC libraries. The workflow runs on Hellbender under SLURM, and an R Shiny dashboard presents the results.
 
-**Status:** complete. Findings are in [docs/results.md](docs/results.md).
+**Status:** complete. Findings are in [docs/results.md](docs/results.md), and the result tables are in [published_results/](published_results/).
 
 | Library | Run | Read pairs |
 |---|---|---:|
@@ -37,7 +37,11 @@ Rscript scripts/install_dashboard.R
 Rscript scripts/run_dashboard.R    # http://127.0.0.1:3838
 ```
 
-The app reads `results/dashboard/`, or the folder named by `ATAC_RESULTS_DIR`.
+The app reads `results/dashboard/`, or the folder named by `ATAC_RESULTS_DIR`. To view the published results without running the pipeline:
+
+```bash
+ATAC_RESULTS_DIR=published_results/dashboard Rscript scripts/run_dashboard.R
+```
 
 ## Tests
 

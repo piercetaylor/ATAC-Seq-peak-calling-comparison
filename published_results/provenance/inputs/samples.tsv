@@ -1,0 +1,3 @@
+sample	run	replicate	fastq_1	fastq_2	md5_1	md5_2
+gm12878_omni_repA	SRR5427887	RepA	https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR542/007/SRR5427887/SRR5427887_1.fastq.gz	https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR542/007/SRR5427887/SRR5427887_2.fastq.gz	242081544172a1ace666b216e5c25d09	6419aec9bc3456d39c13b61fe0827878
+gm12878_omni_repB	SRR5427886	RepB	https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR542/006/SRR5427886/SRR5427886_1.fastq.gz	https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR542/006/SRR5427886/SRR5427886_2.fastq.gz	6f919e22e103b122c13a29a4ea1ea157	f71a0797ddd2e3a9cce6b0a82cdc6697

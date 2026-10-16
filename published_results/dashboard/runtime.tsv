@@ -1,0 +1,7 @@
+sample	caller	elapsed_seconds	max_rss_kb
+gm12878_omni_repA	MACS3	409.03	915768
+gm12878_omni_repA	Genrich	80.03	9916676
+gm12878_omni_repA	HMMRATAC	2976.96	2779504
+gm12878_omni_repB	MACS3	479.32	1067020
+gm12878_omni_repB	Genrich	94.16	10088092
+gm12878_omni_repB	HMMRATAC	2390.66	2774112

@@ -1,0 +1,7 @@
+path	url	algorithm	expected_digest
+/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/data/fastq/gm12878_omni_repA_R1.fastq.gz	https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR542/007/SRR5427887/SRR5427887_1.fastq.gz	md5	242081544172a1ace666b216e5c25d09
+/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/data/fastq/gm12878_omni_repA_R2.fastq.gz	https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR542/007/SRR5427887/SRR5427887_2.fastq.gz	md5	6419aec9bc3456d39c13b61fe0827878
+/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/data/fastq/gm12878_omni_repB_R1.fastq.gz	https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR542/006/SRR5427886/SRR5427886_1.fastq.gz	md5	6f919e22e103b122c13a29a4ea1ea157
+/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/data/fastq/gm12878_omni_repB_R2.fastq.gz	https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR542/006/SRR5427886/SRR5427886_2.fastq.gz	md5	f71a0797ddd2e3a9cce6b0a82cdc6697
+/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/data/reference/hg38.analysisSet.fa.gz	https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/analysisSet/hg38.analysisSet.fa.gz	md5	6d3c82e1e12b127d526395294526b9c8
+/cluster/VAST/mendozacozatld-lab/PierceTaylor/ATAC_Seq_Project/data/reference/hg38-blacklist.v2.bed.gz	https://raw.githubusercontent.com/Boyle-Lab/Blacklist/d0527cdea356bf57d30535b48783804ca8d21031/lists/hg38-blacklist.v2.bed.gz	sha256	c92e763af17271446194991e71917ac220593a5a3d40a06667be24178ef08cf2

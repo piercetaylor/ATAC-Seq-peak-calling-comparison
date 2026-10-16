@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "dataset": "GM12878 Omni-ATAC: SRR5427887 and SRR5427886 (PRJNA380283 / SRP103230)",
+  "assembly": "GRCh38 / hg38 UCSC no-alt analysis set",
+  "mode": "full",
+  "status": "complete",
+  "samples": [
+    "gm12878_omni_repA",
+    "gm12878_omni_repB"
+  ],
+  "notes": "Descriptive comparison; no truth set. HMMRATAC uses MACS3. Replicate libraries are not independent human donors.",
+  "generated_at": "2026-10-15T17:25:51.651431+00:00",
+  "config_sha256": "929d9a695fd46c21ae72bcf24544b2fb0778eac56ed7d3472a3b8a3472f070fc",
+  "samples_sha256": "375de42728a0490339b498d8fe843a4d0ee2421aabb0e89fe691e255178b1c6b"
+}

@@ -1,6 +1,6 @@
 # Results
 
-Run completed 2026-10-14; Genrich re-run 2026-10-15. Source tables are in `results/dashboard/` on Hellbender (results are not tracked in git). There is no truth set, so agreement between callers says nothing about accuracy.
+Run completed 2026-10-14; Genrich re-run 2026-10-15. Source tables are in [published_results/dashboard/](../published_results/dashboard/). There is no truth set, so agreement between callers says nothing about accuracy.
 
 ## Library quality
 
