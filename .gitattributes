@@ -6,3 +6,6 @@
 *.json text eol=lf
 *.yml text eol=lf
 *.md text eol=lf
+*.nf text eol=lf
+*.config text eol=lf
+Dockerfile text eol=lf

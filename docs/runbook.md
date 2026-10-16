@@ -8,7 +8,7 @@ The defaults in `config/project.sh` work as-is:
 - `data/`, `results/`, and `env/runtime/` are created inside the project;
 - jobs use the `general` account and partition with the `normal` QoS.
 
-To change paths or the allocation, copy `config/local.example.sh` to `config/local.sh` and edit it. A run needs roughly 150–250 GB of disk, mostly for the reference index and BAMs.
+To change paths or the allocation, copy `config/local.example.sh` to `config/local.sh` and edit it. The finished run occupies about 32 GB (6.5 GB of inputs, 25 GB of results, mostly BAMs and the reference index); preprocessing needs extra space for intermediate files while it runs.
 
 ## 2. Fetch inputs and build the environment
 

@@ -11,7 +11,7 @@ Three peak callers (MACS3, Genrich, and HMMRATAC as implemented in MACS3) were c
 
 Both libraries come from one GM12878 BioSample (PRJNA380283; Corces et al., 2017), so they are technical rather than donor replicates. Reads were aligned to the UCSC hg38 no-alt analysis set, with the ENCODE blacklist v2 excluded.
 
-**Docs:** [methods](docs/methods.md) · [study plan](docs/study_plan.md) · [data sources](docs/research.md) · [runbook](docs/runbook.md) · [output format](docs/data_contract.md) · [validation](docs/validation.md) · [cloud](docs/cloud.md)
+**Docs:** [methods](docs/methods.md) · [data sources](docs/research.md) · [runbook](docs/runbook.md) · [cloud](docs/cloud.md)
 
 ## Run it
 
@@ -42,7 +42,11 @@ The app reads `results/dashboard/`, or the folder named by `ATAC_RESULTS_DIR`.
 ## Tests
 
 ```bash
-python -m unittest discover -s tests -p 'test_*.py'
+env/runtime/bin/python -m unittest discover -s tests -p 'test_*.py'   # needs Python >= 3.7
 bash tests/test_submission.sh
 Rscript tests/test_dashboard.R
 ```
+
+## License
+
+MIT. See [LICENSE](LICENSE). The sequencing data, reference genome, and blacklist are third-party public resources under their own terms.

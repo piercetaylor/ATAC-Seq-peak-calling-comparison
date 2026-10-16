@@ -14,7 +14,7 @@ PREPARE_REFERENCE ─▶ PREPROCESS (per library) ─▶ CALL_PEAKS (library × 
 |---|---|---|
 | Reference index | 8 CPU, 48 GB | 41 min |
 | Preprocess, per library | 8 CPU, 32 GB | 75–86 min |
-| MACS3 / Genrich / HMMRATAC | 1 CPU; 8 / 16 / 8 GB | 8 / 2 / 50 min |
+| MACS3 / Genrich / HMMRATAC | 1 CPU; 8 / 16 / 8 GB | 7–8 / 2 / 40–50 min |
 | Summarize | 1 CPU, 12 GB | 4 min |
 
 A task killed for running out of memory or time is retried up to twice, each time with more resources.
@@ -60,7 +60,7 @@ To smoke-test on subsampled reads, add the `test` profile. It labels the output 
 
 ## Cost (rough)
 
-The full two-library run needs about 3.5 instance-hours on 8-vCPU machines (reference plus preprocessing) and about 2 hours of single-CPU caller time. On on-demand `r6i.2xlarge` instances that comes to a few US dollars, plus S3 storage for roughly 60 GB of BAMs and indexes. Spot instances cost less. Check current AWS prices before relying on these estimates.
+The full two-library run needs about 3.5 instance-hours on 8-vCPU machines (reference plus preprocessing) and about 2 hours of single-CPU caller time. On on-demand `r6i.2xlarge` instances that comes to a few US dollars, plus S3 storage: the Hellbender run kept about 25 GB of BAMs and index, and the work directory also holds the FASTQs and intermediate files until it is cleaned. Spot instances cost less. Check current AWS prices before relying on these estimates.
 
 ## Differences from the SLURM workflow
 

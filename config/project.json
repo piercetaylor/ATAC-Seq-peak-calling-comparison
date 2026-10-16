@@ -1,5 +1,5 @@
 {
-  "dataset": "GM12878 Omni-ATAC: SRR5427887 and SRR5427886 (PRJNA380283 / GSE95654)",
+  "dataset": "GM12878 Omni-ATAC: SRR5427887 and SRR5427886 (PRJNA380283 / SRP103230)",
   "assembly": "GRCh38 / hg38 UCSC no-alt analysis set",
   "species": "Homo sapiens",
   "cell_line": "GM12878",
